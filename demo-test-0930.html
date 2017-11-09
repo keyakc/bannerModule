@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo-test-0930</title>
+	<link rel="stylesheet" href="reset.css">
+	<link rel="stylesheet" href="demo-test-0930.css">
+	<script src="jquery.min.js"></script>
+</head>
+<body>
+	<div id="banner_position">
+		<!-- <div class="mod_vis_window">
+		<div class="translate_line" style="transform:translateX(-100%) translateZ(0px);transition:0.5s;">
+			<div class="slide" style="left:0%">
+			<img src="img-2/images/work_05.jpg">
+			</div>
+			<div class="slide slide_active" style="left:100%">
+			<img src="img-2/images/work_01.jpg">
+			</div>
+			<div class="slide" style="left:200%">
+			<img src="img-2/images/work_02.jpg">
+			</div>
+		</div>
+		<p class="intro">可拖拽、宽度响应</p>
+		<div class="cursor">
+			<a href="#">&lt</a>
+			<a href="#" class="active">1</a>
+			<a href="#">2</a>
+			<a href="#">3</a>
+			<a href="#">4</a>
+			<a href="#">5</a>
+			<a href="#">6</a>
+			<a href="#">7</a>
+			<a href="#">&gt</a>
+		</div>
+	</div> -->		
+	</div>
+
+	<script src="demo-test-0930.js"></script>
+	<script>
+		
+	propObj={
+		imageUrl : 'img-2/images/work_',//命名规范 img-2/images/work_01
+		imageStyle : 'jpg',
+		imagesNumber : 7,//展示图片数量
+	}
+		var banner1=new Banner(propObj);
+		$("#banner_position").append(banner1.mod_vis_window);
+		banner1._init_drag(true);//拖拽初始化必须
+		
+
+
+	</script>
+</body>
+</html>
