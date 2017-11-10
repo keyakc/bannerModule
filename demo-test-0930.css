@@ -19,7 +19,7 @@
 		top:50%;
 		transition:0.2s;
 		transform:translate(-50%,-50%) scale(0.5);
-		box-shadow: 6px 5px 4px rgba(51,51,51,0.6);
+		box-shadow: 4px 3px 3px rgba(51,51,51,0.6);
 	}
 .mod_vis_window	.translate_line .slide_active img{
 		transform:translate(-50%,-50%) scale(1);

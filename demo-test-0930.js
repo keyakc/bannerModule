@@ -82,6 +82,17 @@
         console.log(this.cursor.children());
         console.log(this.img_units);
     },
+    setInterval : function() {
+      var obj=this;
+        setInterval(function(){
+          var trans=obj.translate_line.attr("style");
+          obj.n_offSet=trans.match(/translateX\((.+)%\)/)[1]/100;
+          console.log(obj.n_offSet)
+          obj.n_offSet*=-1;
+          obj.n_offSet++;
+          obj.picChange(obj.n_offSet);  
+        },3000);
+    },
     setLimit : function() {
         var x=this.mod_vis_window.innerWidth();
         console.log("this.vis_window_width="+x);
@@ -203,7 +214,7 @@
         //拖拽无延时
         if(T!=0) T=0.5;        
         this.n_offSet=n_offSet;
-
+        console.log("n_offSet="+n_offSet);
         var trans="transform:translateX("+minus_n+"00%) translateZ(0px);transition:"+T+"s;";
         translate_line.attr("style",trans);
         //重置位置
