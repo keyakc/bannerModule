@@ -249,8 +249,7 @@
 
     //幻灯片样式切换
     slide_class : function(img_units,n_offSet,n) {
-      img_units.removeClass("slide_active slide_hidden slide_middle"); 
-     
+      img_units.removeClass("slide_active slide_hidden slide_middle");     
       img_units.eq(mod(n_offSet-2,n)).addClass('slide_hidden');
       img_units.eq(mod(n_offSet-1,n)).addClass('slide_middle');
       img_units.eq(mod(n_offSet,n)).addClass('slide_active');
