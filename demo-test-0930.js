@@ -72,6 +72,7 @@
       this.imageStyle, this.imagesNumber, this.translate_line, this.n_offSet, this.mod_vis_window);
 		//偏移
     // this.n_offSet;
+    this._init_drag(true);
 	}
 
 
@@ -84,14 +85,13 @@
     },
     setInterval : function() {
       var obj=this;
-        setInterval(function(){
-          var trans=obj.translate_line.attr("style");
-          obj.n_offSet=trans.match(/translateX\((.+)%\)/)[1]/100;
-          console.log(obj.n_offSet)
-          obj.n_offSet*=-1;
-          obj.n_offSet++;
-          obj.picChange(obj.n_offSet);  
+      obj.autoMove=setInterval(function(){
+        //trigger主动触发事件
+          obj.cursor.children().eq(obj.imagesNumber+1).trigger("click");  
         },3000);
+    },
+    deletInterval : function() {
+      clearInterval(this.autoMove);
     },
     setLimit : function() {
         var x=this.mod_vis_window.innerWidth();
@@ -121,12 +121,14 @@
         ';       
         this.img_units=translate_line.append(template2).children();//?
         //页码初始化
-        for(i=0;i<imagesNumber+2;i++) {
+        for(i=0;i<imagesNumber+2;i++) {         
+          if(i>10) continue; 
             cursor.append('<a href="#">'+i+'</a>');
         }
+       
         cursor.children().eq(0).html("&lt");
         cursor.children().eq(1).addClass("active");
-        cursor.children().eq(imagesNumber+1).html("&gt");
+        cursor.children().last().html('&gt');
         //事件注册
         var 
             cursors=cursor.children(),
@@ -137,7 +139,6 @@
         }
 
         cursors.eq(imagesNumber+1).click(function(){
-        //获取样式
           var trans=translate_line.attr("style");
           n_offSet=trans.match(/translateX\((.+)%\)/)[1]/100;
           console.log(n_offSet)
@@ -147,14 +148,16 @@
         });
 
         cursors.eq(0).click(function(){
-         //获取样式
           var trans=translate_line.attr("style");
           n_offSet=trans.match(/translateX\((.+)%\)/)[1]/100;  
           n_offSet*=-1;
           n_offSet--;
           obj.picChange(n_offSet); 
         });
-        
+        this.setInterval();
+        mod_vis_window.mouseenter(function(){obj.deletInterval()
+        });
+        mod_vis_window.mouseleave(function(){obj.setInterval()});
     },
     _init_drag : function(bool) {//需要外部调用初始化
       //拖拽部分
