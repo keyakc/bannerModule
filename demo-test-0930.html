@@ -39,11 +39,11 @@
 	<script src="demo-test-0930.js"></script>
 	<script>
 		
-	propObj={
-		imageUrl : 'img-2/images/work_',//命名规范 img-2/images/work_01
-		imageStyle : 'jpg',
-		imagesNumber : 7,//展示图片数量
-	}
+		var propObj={
+				imageUrl : 'img-2/images/work_',//命名规范 img-2/images/work_01
+				imageStyle : 'jpg',
+				imagesNumber : 5,//展示图片数量
+			}
 		var banner1=new Banner(propObj);
 		$("#banner_position").append(banner1.mod_vis_window);
 		banner1._init_drag(true);//拖拽初始化必须
