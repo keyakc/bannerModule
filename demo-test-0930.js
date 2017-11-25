@@ -72,7 +72,6 @@
       this.imageStyle, this.imagesNumber, this.translate_line, this.n_offSet, this.mod_vis_window);
 		//偏移
     // this.n_offSet;
-    this._init_drag(true);
 	}
 
 
@@ -82,16 +81,6 @@
         console.log(this.translate_line);
         console.log(this.cursor.children());
         console.log(this.img_units);
-    },
-    setInterval : function() {
-      var obj=this;
-      obj.autoMove=setInterval(function(){
-        //trigger主动触发事件
-          obj.cursor.children().eq(obj.imagesNumber+1).trigger("click");  
-        },3000);
-    },
-    deletInterval : function() {
-      clearInterval(this.autoMove);
     },
     setLimit : function() {
         var x=this.mod_vis_window.innerWidth();
@@ -121,14 +110,12 @@
         ';       
         this.img_units=translate_line.append(template2).children();//?
         //页码初始化
-        for(i=0;i<imagesNumber+2;i++) {         
-          if(i>10) continue; 
+        for(i=0;i<imagesNumber+2;i++) {
             cursor.append('<a href="#">'+i+'</a>');
         }
-       
         cursor.children().eq(0).html("&lt");
         cursor.children().eq(1).addClass("active");
-        cursor.children().last().html('&gt');
+        cursor.children().eq(imagesNumber+1).html("&gt");
         //事件注册
         var 
             cursors=cursor.children(),
@@ -139,6 +126,7 @@
         }
 
         cursors.eq(imagesNumber+1).click(function(){
+        //获取样式
           var trans=translate_line.attr("style");
           n_offSet=trans.match(/translateX\((.+)%\)/)[1]/100;
           console.log(n_offSet)
@@ -148,16 +136,14 @@
         });
 
         cursors.eq(0).click(function(){
+         //获取样式
           var trans=translate_line.attr("style");
           n_offSet=trans.match(/translateX\((.+)%\)/)[1]/100;  
           n_offSet*=-1;
           n_offSet--;
           obj.picChange(n_offSet); 
         });
-        this.setInterval();
-        mod_vis_window.mouseenter(function(){obj.deletInterval()
-        });
-        mod_vis_window.mouseleave(function(){obj.setInterval()});
+        
     },
     _init_drag : function(bool) {//需要外部调用初始化
       //拖拽部分
@@ -217,7 +203,7 @@
         //拖拽无延时
         if(T!=0) T=0.5;        
         this.n_offSet=n_offSet;
-        console.log("n_offSet="+n_offSet);
+
         var trans="transform:translateX("+minus_n+"00%) translateZ(0px);transition:"+T+"s;";
         translate_line.attr("style",trans);
         //重置位置
@@ -249,7 +235,8 @@
 
     //幻灯片样式切换
     slide_class : function(img_units,n_offSet,n) {
-      img_units.removeClass("slide_active slide_hidden slide_middle");     
+      img_units.removeClass("slide_active slide_hidden slide_middle"); 
+     
       img_units.eq(mod(n_offSet-2,n)).addClass('slide_hidden');
       img_units.eq(mod(n_offSet-1,n)).addClass('slide_middle');
       img_units.eq(mod(n_offSet,n)).addClass('slide_active');

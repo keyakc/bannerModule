@@ -44,12 +44,11 @@
 		imageStyle : 'jpg',
 		imagesNumber : 7,//展示图片数量
 	}
+		var banner1=new Banner(propObj);
+		$("#banner_position").append(banner1.mod_vis_window);
+		banner1._init_drag(true);//拖拽初始化必须
+		
 
-	var banner1=new Banner(propObj);
-	//组件填充位置
-	$("#banner_position").append(banner1.mod_vis_window);
-	//如需拖拽初始化必须
-	banner1._init_drag(true);
 
 	</script>
 </body>
