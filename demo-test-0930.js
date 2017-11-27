@@ -89,7 +89,7 @@
     putImages : function() {
         this.translate_line.append();
     },
-    _init : function(img_units, cursor, imageUrl, imageStyle, imagesNumber,translate_line, n_offSet, mod_vis_window) {
+    _init : function(img_units, cursor, imageUrl, imageStyle, imagesNumber,translate_line, n_offSet, mod_vis_window, callback) {
       //图片初始化
         var template2='\
         <div class="slide slide_hidden" style="left:-100%">\
@@ -107,7 +107,7 @@
           <div class="slide slide_hidden" style="left:300%">\
           <img src="'+imageUrl+'03.'+imageStyle+'">\
           </div>\
-        ';       
+        ';
         this.img_units=translate_line.append(template2).children();//?
         //页码初始化
         for(i=0;i<imagesNumber+2;i++) {
@@ -132,7 +132,7 @@
           console.log(n_offSet)
           n_offSet*=-1;
           n_offSet++;
-          obj.picChange(n_offSet);          
+          obj.picChange(n_offSet);        
         });
 
         cursors.eq(0).click(function(){
@@ -142,10 +142,27 @@
           n_offSet*=-1;
           n_offSet--;
           obj.picChange(n_offSet); 
-        });
-        
+        });     
+        //自动轮播初始化
+        this.autoplay(this); 
+        //启用拖拽     
+        this._init_drag(this);
     },
-    _init_drag : function(bool) {//需要外部调用初始化
+    autoplay : function(obj) {
+      if(obj.autoPlay==false) return;//开关
+      var trans=function(){
+        var trans=obj.translate_line.attr("style");
+        var n_offSet=trans.match(/translateX\((.+)%\)/)[1]/100;
+            n_offSet*=-1;
+            n_offSet++;
+            obj.picChange(n_offSet);
+      };
+      var ap=setInterval(trans,3000);
+      obj.translate_line.mouseenter(function(){clearInterval(ap)});
+      obj.translate_line.mouseleave(function(){ap=setInterval(trans,3000)})
+    },
+    _init_drag : function(thisObj) {//需要外部调用初始化
+      if(thisObj.drag==false) return;
       //拖拽部分
         var downFlag=0,//标记
             clientX,
@@ -165,7 +182,7 @@
         });
 
         this.translate_line.mousemove(function(event){  
-          if(downFlag==1&&bool){
+          if(downFlag==1&&thisObj.drag){
             var offsetX=pxOffset+event.clientX-clientX;
             var str;  
             str="transform:translateX("+offsetX+"px) translateZ(0px);transition:"+0+"s;";
@@ -230,13 +247,11 @@
     button_class : function(cursor,n) {        
       cursor.children().removeClass("active");        
       cursor.children().eq(n).addClass('active');
-
     },
 
     //幻灯片样式切换
     slide_class : function(img_units,n_offSet,n) {
-      img_units.removeClass("slide_active slide_hidden slide_middle"); 
-     
+      img_units.removeClass("slide_active slide_hidden slide_middle");     
       img_units.eq(mod(n_offSet-2,n)).addClass('slide_hidden');
       img_units.eq(mod(n_offSet-1,n)).addClass('slide_middle');
       img_units.eq(mod(n_offSet,n)).addClass('slide_active');
