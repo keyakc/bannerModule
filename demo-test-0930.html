@@ -5,6 +5,13 @@
 	<title>demo-test-0930</title>
 	<link rel="stylesheet" href="reset.css">
 	<link rel="stylesheet" href="demo-test-0930.css">
+	<style>
+		#banner_position {
+			width:1000px;
+			margin:0 auto;
+			overflow: hidden;
+		}
+	</style>
 	<script src="jquery.min.js"></script>
 </head>
 <body>
@@ -43,7 +50,7 @@
 		imageUrl : 'img-2/images/work_',//命名规范 img-2/images/work_01
 		imageStyle : 'jpg',
 		imagesNumber : 7,//展示图片数量
-		autoPlay : false,//自动轮播
+		autoPlay : true,//自动轮播
 		drag : true,//拖拽
 	}
 	var banner1=new Banner(propObj);

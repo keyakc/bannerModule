@@ -69,7 +69,7 @@
 		color:#fff;
 	}
 
-@media screen and (min-width: 1080px) and (max-width: 1300px) {
+/*@media screen and (min-width: 769px) and (max-width: 1300px) {
 	.mod_vis_window {
 		outline:1px solid rgba(230,0,18,0.3);
 
@@ -79,8 +79,8 @@
 	}
 
 
-}
-@media screen and (max-width: 1080px) {
+}*/
+/*@media screen and (max-width: 769px) {
 	.mod_vis_window {
 		outline:1px solid rgba(230,0,18,0.3);
 		overflow: hidden;
@@ -91,4 +91,4 @@
 	.mod_vis_window	.slide_active img{
 		transform:translate(-50%,-50%) scale(1);
 	}
-}
+}*/
